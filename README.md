@@ -1,5 +1,9 @@
 # LogiCost SA – Supply Chain & Costing System
 
+
+Youtube video link:https://youtu.be/MdfFcV8JVBE?si=U0t-9lvuBzFzA-bK
+
+
 ## 1. Project Overview
 
 LogiCost SA is a logistics, supply chain, and cost-management system designed to support South African manufacturing Small, Medium and Micro Enterprises (SMMEs). The project aims to help businesses manage inventory, coordinate deliveries, compare supplier and service offers, and understand their operating costs through a centralised digital platform.
