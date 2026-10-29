@@ -1,4 +1,3 @@
-
 <?php
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/includes/csrf.php';
@@ -26,6 +25,7 @@ if (!$company) {
 }
 
 $businessName = $company['business_name'];
+
 $location = trim(
     ($company['city'] ?? '') .
     (!empty($company['city']) && !empty($company['province']) ? ', ' : '') .
@@ -37,96 +37,225 @@ $location = trim(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Dashboard | LogiCost SA</title>
+
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .dashboard-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .dashboard-nav form {
+            margin: 0;
+        }
+
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .tool-card h3 {
+            margin-top: 0;
+        }
+
+        .tool-card p {
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        .tool-card .coming-soon {
+            margin-top: 12px;
+        }
+
+        .tool-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+            height: 100%;
+        }
+
+        .tool-link:focus-visible {
+            outline: 3px solid #16845b;
+            outline-offset: 4px;
+            border-radius: 6px;
+        }
+
+        @media (max-width: 900px) {
+            .app-header {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+
+            .dashboard-nav {
+                justify-content: flex-start;
+            }
+        }
+    </style>
 </head>
+
 <body class="dashboard-page">
-    <header class="app-header">
-        <a class="brand brand-dark" href="dashboard.php">
-            <span class="brand-mark">L</span>
-            <span>LogiCost <strong>SA</strong></span>
-        </a>
 
-        
-        <div class="header-user">
-            <a href="live-map.php" class="btn btn-outline-dark">
-                <a href="offers-map.php" class="btn btn-primary">Offers Map</a>
-                <a class="btn btn-outline-dark" href="deliveries.php">Deliveries</a>
-                <a class="btn btn-outline-dark" href="inventory.php">Inventory</a>
-                <a class="btn btn-outline-dark" href="marketplace.php">Marketplace</a>
-                
-                
-<a class="btn btn-outline-dark" href="business-reports.php">
-    Business Reports
-</a>
+<header class="app-header">
+    <a class="brand brand-dark" href="dashboard.php">
+        <span class="brand-mark">L</span>
+        <span>LogiCost <strong>SA</strong></span>
+    </a>
 
+    <div class="header-user">
+        <nav class="dashboard-nav" aria-label="Main navigation">
+            <a class="btn btn-primary" href="offers-map.php">
+                Offers Map
             </a>
 
-            <span><?= htmlspecialchars(current_user_name(), ENT_QUOTES, 'UTF-8') ?></span>
+            <a class="btn btn-outline-dark" href="deliveries.php">
+                Deliveries
+            </a>
 
-            <form method="post" action="logout.php">
-                <?= csrf_field() ?>
-                <button class="btn btn-outline-dark" type="submit">Log out</button>
-            </form>
-        </div>
-    </header>
+            <a class="btn btn-outline-dark" href="inventory.php">
+                Inventory
+            </a>
 
+            <a class="btn btn-outline-dark" href="marketplace.php">
+                Marketplace
+            </a>
 
-    <main class="dashboard-container">
-        <section class="welcome-panel">
-            <p class="eyebrow eyebrow-light">YOUR BUSINESS WORKSPACE</p>
-            <h1>Welcome, <?= htmlspecialchars(current_user_name(), ENT_QUOTES, 'UTF-8') ?></h1>
+            <a class="btn btn-outline-dark" href="business-reports.php">
+                Business Reports
+            </a>
+        </nav>
+
+        <span>
+            <?= htmlspecialchars(current_user_name(), ENT_QUOTES, 'UTF-8') ?>
+        </span>
+
+        <form method="post" action="logout.php">
+            <?= csrf_field() ?>
+            <button class="btn btn-outline-dark" type="submit">
+                Log out
+            </button>
+        </form>
+    </div>
+</header>
+
+<main class="dashboard-container">
+
+    <section class="welcome-panel">
+        <p class="eyebrow eyebrow-light">YOUR BUSINESS WORKSPACE</p>
+
+        <h1>
+            Welcome,
+            <?= htmlspecialchars(current_user_name(), ENT_QUOTES, 'UTF-8') ?>
+        </h1>
+
+        <p>
+            <?= htmlspecialchars($businessName, ENT_QUOTES, 'UTF-8') ?>
+
+            <?php if ($location !== ''): ?>
+                · <?= htmlspecialchars($location, ENT_QUOTES, 'UTF-8') ?>
+            <?php endif; ?>
+        </p>
+    </section>
+
+    <section class="section-heading">
+        <div>
+            <h2>Your business tools</h2>
             <p>
-                <?= htmlspecialchars($businessName, ENT_QUOTES, 'UTF-8') ?>
-                <?php if ($location !== ''): ?>
-                    · <?= htmlspecialchars($location, ENT_QUOTES, 'UTF-8') ?>
-                <?php endif; ?>
+                Access your business tools and explore the features available
+                in LogiCost SA.
             </p>
-        </section>
+        </div>
+    </section>
 
-        <section class="section-heading">
-            <div>
-                <h2>Your business tools</h2>
-                <p>We'll activate each module as its features are built and tested.</p>
-            </div>
-        </section>
+    <section class="tool-grid">
 
-        <section class="tool-grid">
-            <article class="tool-card">
-                <span class="tool-icon">📦</span>
-                <h3>Stock & inventory</h3>
-                <p>Manage products, stock levels and stock movements.</p>
-                <span class="coming-soon">Coming in the next stage</span>
-            </article>
+        <article class="tool-card">
+            <h3>Stock &amp; Inventory</h3>
 
-            <article class="tool-card">
-                <span class="tool-icon">🚚</span>
-                <h3>Deliveries & drivers</h3>
-                <p>Plan deliveries and organise transport requirements.</p>
-                <span class="coming-soon">Coming in the next stage</span>
-            </article>
+            <p>
+                Keep product records organised, monitor stock quantities,
+                and identify items that may need replenishment.
+            </p>
 
-            <article class="tool-card">
-                <span class="tool-icon">🤝</span>
-                <h3>Business marketplace</h3>
-                <p>Discover suppliers, compare offers and request quotations.</p>
-                <span class="coming-soon">Coming in the next stage</span>
-            </article>
+            <span class="coming-soon">Inventory tools</span>
 
-            <article class="tool-card">
-                <span class="tool-icon">📊</span>
-                <h3>Costs & reports</h3>
-                <p>Record business expenses and understand operating costs.</p>
-                <span class="coming-soon">Coming in the next stage</span>
-            </article>
+            <a class="tool-link" href="inventory.php">
+                Manage inventory
+            </a>
+        </article>
 
-            <article class="tool-card">
-                <span class="tool-icon">🗺️</span>
-                <h3>Live map</h3>
-                <p>Explore the map foundation before enabling real tracking.</p>
-                <span class="coming-soon">Coming in the next stage</span>
-            </article>
-        </section>
-    </main>
+        <article class="tool-card">
+            <h3>Deliveries &amp; Drivers</h3>
+
+            <p>
+                Organise delivery jobs, review transport requirements,
+                and keep track of delivery progress.
+            </p>
+
+            <span class="coming-soon">Delivery management</span>
+
+            <a class="tool-link" href="deliveries.php">
+                View deliveries
+            </a>
+        </article>
+
+        <article class="tool-card">
+            <h3>Business Marketplace</h3>
+
+            <p>
+                Explore published products, services, and delivery offers
+                from businesses, and request quotations for your needs.
+            </p>
+
+            <span class="coming-soon">Business connections</span>
+
+            <a class="tool-link" href="marketplace.php">
+                Explore marketplace
+            </a>
+        </article>
+
+        <article class="tool-card">
+            <h3>Costs &amp; Reports</h3>
+
+            <p>
+                Access the business reporting section to support expense
+                tracking and better understanding of operating costs as
+                these features are developed.
+            </p>
+
+            <span class="coming-soon">Cost management</span>
+
+            <a class="tool-link" href="business-reports.php">
+                View business reports
+            </a>
+        </article>
+
+        <article class="tool-card">
+            <h3>Offers Map</h3>
+
+            <p>
+                Explore marketplace offers on a map and use available
+                search filters to find relevant business opportunities
+                by location.
+            </p>
+
+            <span class="coming-soon">Map and offer discovery</span>
+
+            <a class="tool-link" href="offers-map.php">
+                Explore offers map
+            </a>
+        </article>
+
+    </section>
+
+</main>
+
 </body>
 </html>
