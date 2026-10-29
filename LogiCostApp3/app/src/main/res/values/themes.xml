@@ -13,6 +13,8 @@
         <item name="android:statusBarColor">@color/navy</item>
         <item name="android:navigationBarColor">@color/white</item>
         <item name="android:windowLightNavigationBar">true</item>
+        <!-- Dark status bar icons, because screens use a light background. -->
+        <item name="android:windowLightStatusBar">true</item>
 
         <item name="shapeAppearanceSmallComponent">@style/Shape.LogiCost.Small</item>
         <item name="shapeAppearanceMediumComponent">@style/Shape.LogiCost.Medium</item>
