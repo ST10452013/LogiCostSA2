@@ -1,0 +1,84 @@
+rules_version = '2';
+
+// LogiCost SA - Firestore security rules.
+// Every business record carries a companyId. Signed-in users can only
+// read and change records that belong to their own company. Marketplace
+// listings are visible to all signed-in users; quotes only to the buyer
+// and the seller.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function myCompany() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.companyId;
+    }
+
+    function ownsExisting() {
+      return signedIn() && resource.data.companyId == myCompany();
+    }
+
+    function ownsNew() {
+      return signedIn() && request.resource.data.companyId == myCompany();
+    }
+
+    // Companies cannot be moved to another company once created.
+    function keepsCompany() {
+      return request.resource.data.companyId == resource.data.companyId;
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn()
+        && (request.auth.uid == uid || resource.data.companyId == myCompany());
+      allow create: if signedIn() && request.auth.uid == uid;
+      allow update: if signedIn() && request.auth.uid == uid
+        && request.resource.data.companyId == resource.data.companyId;
+      allow delete: if false;
+    }
+
+    match /companies/{companyId} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.ownerUid == request.auth.uid;
+      allow update: if signedIn() && resource.data.ownerUid == request.auth.uid;
+      allow delete: if false;
+    }
+
+    match /inventory/{itemId} {
+      allow read, delete: if ownsExisting();
+      allow create: if ownsNew()
+        && request.resource.data.quantity is int
+        && request.resource.data.quantity >= 0;
+      allow update: if ownsExisting() && keepsCompany()
+        && request.resource.data.quantity >= 0;
+    }
+
+    match /deliveries/{deliveryId} {
+      allow read: if ownsExisting();
+      allow create: if ownsNew();
+      allow update: if ownsExisting() && keepsCompany();
+      allow delete: if false;
+    }
+
+    match /marketplace_listings/{listingId} {
+      allow read: if signedIn();
+      allow create: if ownsNew();
+      allow update, delete: if ownsExisting();
+    }
+
+    match /marketplace_quotes/{quoteId} {
+      allow read: if signedIn()
+        && (resource.data.buyerCompanyId == myCompany()
+            || resource.data.sellerCompanyId == myCompany());
+      allow create: if signedIn()
+        && request.resource.data.buyerCompanyId == myCompany();
+      allow update: if signedIn()
+        && (resource.data.buyerCompanyId == myCompany()
+            || resource.data.sellerCompanyId == myCompany())
+        && request.resource.data.buyerCompanyId == resource.data.buyerCompanyId
+        && request.resource.data.sellerCompanyId == resource.data.sellerCompanyId;
+      allow delete: if false;
+    }
+  }
+}

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.logicostapp3.MainActivity
-import com.example.logicostapp3.api.RetrofitClient
+import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.databinding.DialogAddDeliveryBinding
 import com.example.logicostapp3.databinding.FragmentDeliveriesBinding
@@ -69,7 +69,7 @@ class DeliveriesFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance.getDeliveries(
+                val response = FirebaseService.instance.getDeliveries(
                     session.getToken()
                 )
 
@@ -187,7 +187,7 @@ class DeliveriesFragment : Fragment() {
     private fun addDelivery(request: AddDeliveryRequest) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance.addDelivery(
+                val response = FirebaseService.instance.addDelivery(
                     session.getToken(),
                     request
                 )
@@ -338,7 +338,7 @@ class DeliveriesFragment : Fragment() {
     private fun updateDelivery(request: UpdateDeliveryRequest) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance.updateDelivery(
+                val response = FirebaseService.instance.updateDelivery(
                     session.getToken(),
                     request
                 )

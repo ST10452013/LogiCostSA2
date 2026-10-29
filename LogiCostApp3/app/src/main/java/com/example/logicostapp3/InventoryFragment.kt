@@ -10,7 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.logicostapp3.api.RetrofitClient
+import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.databinding.DialogAddInventoryBinding
 import com.example.logicostapp3.databinding.FragmentInventoryBinding
@@ -90,7 +90,7 @@ class InventoryFragment : Fragment() {
             binding.swipeRefresh.isRefreshing = true
 
             try {
-                val response = RetrofitClient.instance.getInventory(
+                val response = FirebaseService.instance.getInventory(
                     session.getToken(),
                     search.takeIf { it.isNotBlank() }
                 )
@@ -215,7 +215,7 @@ class InventoryFragment : Fragment() {
                     sellingPrice = selling
                 )
 
-                val response = RetrofitClient.instance.addInventoryItem(
+                val response = FirebaseService.instance.addInventoryItem(
                     session.getToken(),
                     request
                 )
@@ -253,7 +253,7 @@ class InventoryFragment : Fragment() {
                     sellingPrice = selling
                 )
 
-                val response = RetrofitClient.instance.updateInventoryItem(
+                val response = FirebaseService.instance.updateInventoryItem(
                     session.getToken(),
                     request
                 )
@@ -288,7 +288,7 @@ class InventoryFragment : Fragment() {
     private fun deleteItem(item: InventoryItem) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance.deleteInventoryItem(
+                val response = FirebaseService.instance.deleteInventoryItem(
                     session.getToken(),
                     mapOf("id" to item.id)
                 )

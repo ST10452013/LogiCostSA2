@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.databinding.ActivityMainBinding
 import com.example.logicostapp3.ui.login.LoginActivity
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         session = SessionManager(this)
 
         // Prevent the main screen from opening without a valid session.
-        if (!session.isLoggedIn()) {
+        if (!session.isLoggedIn() || !FirebaseService.instance.isSignedIn()) {
             openLogin()
             return
         }
@@ -55,6 +56,7 @@ class MainActivity : AppCompatActivity() {
      * or the session has expired.
      */
     fun logout() {
+        FirebaseService.instance.signOut()
         session.logout()
         openLogin()
     }

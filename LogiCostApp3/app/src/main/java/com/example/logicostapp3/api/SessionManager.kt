@@ -63,18 +63,4 @@ class SessionManager(context: Context) {
     fun logout() {
         prefs.edit().clear().apply()
     }
-
-    //backdoor code
-    fun loginAsGuest() {
-        prefs.edit().apply {
-            putBoolean(KEY_LOGGED, true)
-            putString(KEY_TOKEN, "DEV_GUEST_TOKEN")
-            putInt(KEY_USER_ID, 1)
-            putString(KEY_NAME, "Guest User")
-            putString(KEY_EMAIL, "guest@logicost.local")
-            putString(KEY_ROLE, "Developer")
-            apply()
-        }
-    }
 }
-

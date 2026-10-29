@@ -6,7 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.logicostapp3.api.RetrofitClient
+import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.databinding.ActivityRegisterBinding
 import com.example.logicostapp3.model.RegisterRequest
 import kotlinx.coroutines.launch
@@ -170,9 +170,12 @@ class RegisterActivity : AppCompatActivity() {
                     confirmPassword = confirmPassword
                 )
 
-                val response = RetrofitClient.instance.register(request)
+                val response = FirebaseService.instance.register(request)
 
                 if (response.isSuccessful && response.body()?.success == true) {
+                    // Firebase signs the new user in; return them to the login screen.
+                    FirebaseService.instance.signOut()
+
                     Toast.makeText(
                         this@RegisterActivity,
                         "Business account created! Please log in.",

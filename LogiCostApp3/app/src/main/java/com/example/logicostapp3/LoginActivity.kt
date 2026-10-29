@@ -5,12 +5,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.credentials.CredentialManager
+import androidx.credentials.CustomCredential
+import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialCancellationException
+import androidx.credentials.exceptions.GetCredentialException
 import androidx.lifecycle.lifecycleScope
 import com.example.logicostapp3.MainActivity
-import com.example.logicostapp3.api.RetrofitClient
+import com.example.logicostapp3.R
+import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.databinding.ActivityLoginBinding
+import com.example.logicostapp3.model.AuthResponse
 import com.example.logicostapp3.model.LoginRequest
+import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
+import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.example.logicostapp3.ui.register.RegisterActivity
 import kotlinx.coroutines.launch
 
@@ -28,16 +37,22 @@ class LoginActivity : AppCompatActivity() {
         session = SessionManager(this)
 
         // If already logged in, go straight to the dashboard.
-        if (session.isLoggedIn()) {
+        if (session.isLoggedIn() && FirebaseService.instance.isSignedIn()) {
             goToDashboard()
             return
         }
 
-
+        // Clear any stale session from before Firebase sign-in.
+        session.logout()
 
         // Normal login.
         binding.btnLogin.setOnClickListener {
             attemptLogin()
+        }
+
+        // Single sign-on with Google.
+        binding.btnGoogleSignIn.setOnClickListener {
+            attemptGoogleSignIn()
         }
 
         // Keep the development bypass unavailable.
@@ -79,46 +94,14 @@ class LoginActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance.login(
+                val response = FirebaseService.instance.login(
                     LoginRequest(
                         email = email,
                         password = password
                     )
                 )
 
-                val body = response.body()
-
-                if (response.isSuccessful && body?.success == true) {
-                    val user = body.user
-                    val token = body.token
-
-                    if (user == null || token.isNullOrBlank()) {
-                        showError(
-                            "The server returned an incomplete login response."
-                        )
-                        return@launch
-                    }
-
-                    session.saveSession(
-                        token = token,
-                        id = user.id,
-                        name = user.fullname,
-                        email = user.email,
-                        role = user.role
-                    )
-
-                    goToDashboard()
-
-                } else {
-                    val message = body?.message
-                        ?: when (response.code()) {
-                            401 -> "Invalid login details or inactive account."
-                            404 -> "Login API not found. Check the server URL."
-                            else -> "Login failed. Server error: ${response.code()}"
-                        }
-
-                    showError(message)
-                }
+                handleAuthResponse(response.body())
 
             } catch (e: Exception) {
                 showError(
@@ -130,6 +113,78 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun attemptGoogleSignIn() {
+        binding.tvError.visibility = View.GONE
+        setLoading(true)
+
+        val googleOption = GetSignInWithGoogleOption.Builder(
+            getString(R.string.default_web_client_id)
+        ).build()
+
+        val request = GetCredentialRequest.Builder()
+            .addCredentialOption(googleOption)
+            .build()
+
+        lifecycleScope.launch {
+            try {
+                val result = CredentialManager.create(this@LoginActivity)
+                    .getCredential(this@LoginActivity, request)
+
+                val credential = result.credential
+
+                if (credential is CustomCredential &&
+                    credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
+                ) {
+                    val idToken = GoogleIdTokenCredential
+                        .createFrom(credential.data)
+                        .idToken
+
+                    handleAuthResponse(
+                        FirebaseService.instance.signInWithGoogle(idToken).body()
+                    )
+                } else {
+                    showError("Google did not return a sign-in token.")
+                }
+
+            } catch (e: GetCredentialCancellationException) {
+                // The user closed the Google account picker.
+            } catch (e: GetCredentialException) {
+                showError("Google sign-in is not available on this device.")
+            } catch (e: Exception) {
+                showError(
+                    "Google sign-in failed. Check your connection and try again."
+                )
+            } finally {
+                setLoading(false)
+            }
+        }
+    }
+
+    private fun handleAuthResponse(body: AuthResponse?) {
+        if (body?.success != true) {
+            showError(body?.message ?: "Login failed. Please try again.")
+            return
+        }
+
+        val user = body.user
+        val token = body.token
+
+        if (user == null || token.isNullOrBlank()) {
+            showError("The server returned an incomplete login response.")
+            return
+        }
+
+        session.saveSession(
+            token = token,
+            id = user.id,
+            name = user.fullname,
+            email = user.email,
+            role = user.role
+        )
+
+        goToDashboard()
+    }
+
     private fun goToDashboard() {
         startActivity(
             Intent(this, MainActivity::class.java)
@@ -139,6 +194,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setLoading(loading: Boolean) {
         binding.btnLogin.isEnabled = !loading
+        binding.btnGoogleSignIn.isEnabled = !loading
         binding.btnSkipLogin.isEnabled = !loading
 
         binding.progressBar.visibility =

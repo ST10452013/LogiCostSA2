@@ -4,7 +4,7 @@ package com.example.logicostapp3.ui.dashboard
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.logicostapp3.MainActivity
-import com.example.logicostapp3.api.RetrofitClient
+import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.databinding.FragmentDashboardBinding
 import kotlinx.coroutines.CancellationException
@@ -83,7 +83,7 @@ class DashboardFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance
+                val response = FirebaseService.instance
                     .getDashboardStats(token)
 
                 if (!isAdded || _binding == null) return@launch

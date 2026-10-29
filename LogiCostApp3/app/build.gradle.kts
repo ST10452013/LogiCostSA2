@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     //alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -78,6 +79,17 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.security.crypto)
     implementation(libs.swiperefreshlayout)
+
+    // Firebase: authentication and Firestore database
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore)
+    implementation(libs.kotlinx.coroutines.play.services)
+
+    // Sign in with Google (single sign-on)
+    implementation(libs.credentials)
+    implementation(libs.credentials.play.services.auth)
+    implementation(libs.googleid)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

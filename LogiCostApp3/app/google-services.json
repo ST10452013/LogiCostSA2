@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "811886729892",
+    "project_id": "logicost-deaf5",
+    "storage_bucket": "logicost-deaf5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811886729892:android:beccee51fe7a8c50a5e431",
+        "android_client_info": {
+          "package_name": "com.example.logicostapp3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811886729892-14mkldr7a13k7arv38okd14ib42kfgp6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.logicostapp3",
+            "certificate_hash": "0cdbcd281f1b5578b0195304ee8922b3645bd7cc"
+          }
+        },
+        {
+          "client_id": "811886729892-cttqquh05bm6g2jnlp70uj7nfcgv87pg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_soXNM0o0ChLHjUq47AXAIegAYp9he_E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811886729892-cttqquh05bm6g2jnlp70uj7nfcgv87pg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

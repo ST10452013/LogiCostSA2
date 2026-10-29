@@ -10,7 +10,7 @@ import android.widget.*
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.logicostapp3.api.RetrofitClient
+import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.model.MarketplaceActionResponse
 import com.example.logicostapp3.model.MarketplaceResponse
@@ -151,7 +151,7 @@ class MarketplaceFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance
+                val response = FirebaseService.instance
                     .getMarketplace(token)
 
                 if (!isAdded) return@launch
@@ -422,7 +422,7 @@ class MarketplaceFragment : Fragment() {
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance
+                val response = FirebaseService.instance
                     .publishMarketplaceListing(token, request)
 
                 if (!isAdded) return@launch
@@ -514,7 +514,7 @@ class MarketplaceFragment : Fragment() {
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val response = RetrofitClient.instance
+                val response = FirebaseService.instance
                     .requestMarketplaceQuote(token, request)
 
                 if (!isAdded) return@launch
