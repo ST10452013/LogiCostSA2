@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/ic_nav_dashboard"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/inventoryFragment"
+        android:icon="@drawable/ic_nav_inventory"
+        android:title="Inventory" />
+
+    <item
+        android:id="@+id/deliveriesFragment"
+        android:icon="@drawable/ic_nav_delivery"
+        android:title="Deliveries" />
+
+    <item
+        android:id="@+id/routesFragment"
+        android:icon="@drawable/ic_nav_routes"
+        android:title="Routes" />
+
+
+    <item
+        android:id="@+id/costCalculatorFragment"
+        android:icon="@drawable/ic_nav_calculator"
+        android:title="Calculator" />
+
+
+    <item
+        android:id="@+id/marketplaceFragment"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Marketplace" />
+
+
+
+</menu>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navy">#1A2A5E</color>
+    <color name="gold">#D4AF37</color>
+    <color name="background">#F0F4F8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey_text">#666666</color>
+    <color name="primary">#1A2A5E</color>
+    <color name="primary_variant">#0F1A3E</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="secondary">#D4AF37</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="bottom_nav_selector">#FF5722</color>
+
+
+    <color name="navy_light">#344A82</color>
+    <color name="navy_dark">#101B40</color>
+    <color name="blue">#2878B5</color>
+    <color name="blue_light">#DCEBFA</color>
+    <color name="teal">#168C8C</color>
+    <color name="teal_light">#D9F2EF</color>
+    <color name="green">#2E8B57</color>
+    <color name="green_light">#DDF3E4</color>
+    <color name="red">#D64545</color>
+    <color name="red_light">#FCE4E4</color>
+    <color name="orange">#F08A24</color>
+    <color name="orange_light">#FFF0DB</color>
+    <color name="purple">#7955A3</color>
+    <color name="purple_light">#EEE5F7</color>
+    <color name="charcoal">#303846</color>
+    <color name="grey">#9AA4B2</color>
+    <color name="light_grey">#E2E8F0</color>
+    <color name="cream">#FFF8E7</color>
+    <color name="gold_light">#F4E6B5</color>
+    <color name="black">#171717</color>
+
+
+    <!-- White tones -->
+    <color name="pure_white">#FFFFFF</color>
+    <color name="off_white">#FAFAF7</color>
+    <color name="ivory">#FFF8E7</color>
+    <color name="snow_white">#F5F9FF</color>
+    <color name="pearl_white">#F0F0EB</color>
+
+    <!-- Additional colours -->
+    <color name="royal_blue">#4169E1</color>
+    <color name="sky_blue">#87CEEB</color>
+    <color name="ice_blue">#E6F4FF</color>
+    <color name="steel_blue">#4682B4</color>
+    <color name="midnight_blue">#191970</color>
+    <color name="cyan">#00A6C7</color>
+    <color name="aqua">#76D7C4</color>
+    <color name="forest_green">#228B22</color>
+    <color name="lime_green">#84CC16</color>
+    <color name="mint">#D1FAE5</color>
+    <color name="olive">#808000</color>
+    <color name="emerald">#059669</color>
+    <color name="amber">#FFC107</color>
+    <color name="burnt_orange">#CC5500</color>
+    <color name="coral">#FF7F50</color>
+    <color name="peach">#FFE0CC</color>
+    <color name="crimson">#B22222</color>
+    <color name="rose">#E8A0A8</color>
+    <color name="pink_light">#FCE7F3</color>
+    <color name="magenta">#C026D3</color>
+    <color name="lavender">#C4B5FD</color>
+    <color name="indigo">#4F46E5</color>
+    <color name="brown">#795548</color>
+    <color name="taupe">#B8A99A</color>
+    <color name="slate">#64748B</color>
+
+</resources>

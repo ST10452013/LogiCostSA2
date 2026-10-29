@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    android:background="#FFFFFF"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvListingType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#EAF0F7"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="5dp"
+        android:text="PRODUCT"
+        android:textColor="#14233C"
+        android:textSize="11sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvListingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Bulk Packaging Materials"
+        android:textColor="#14233C"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvListingCompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Cape Supply Co."
+        android:textColor="#687386"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tvListingLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Johannesburg, Gauteng"
+        android:textColor="#687386"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvListingDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Packaging materials available for small businesses."
+        android:textColor="#28303C"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvListingPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="From R 1,250.00"
+
+        android:textColor="#14233C"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnRequestQuote"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#14233C"
+        android:text="Request a quote"
+        android:textAllCaps="false"
+        android:textColor="#2E43B3" />
+
+</LinearLayout>

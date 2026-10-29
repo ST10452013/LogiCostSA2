@@ -1,0 +1,11 @@
+# JVM crash logs from Android Studio / Gradle
+hs_err_pid*.log
+replay_pid*.log
+
+# Android build and IDE files
+LogiCostApp3/.kotlin/
+LogiCostApp3/.gradle/
+LogiCostApp3/.idea/
+LogiCostApp3/build/
+LogiCostApp3/app/build/
+LogiCostApp3/local.properties

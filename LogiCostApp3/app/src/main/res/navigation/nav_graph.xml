@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.logicostapp3.ui.dashboard.DashboardFragment"
+        android:label="Dashboard" />
+
+    <fragment
+        android:id="@+id/inventoryFragment"
+        android:name="com.example.logicostapp3.ui.inventory.InventoryFragment"
+        android:label="Inventory" />
+
+    <fragment
+        android:id="@+id/deliveriesFragment"
+        android:name="com.example.logicostapp3.ui.deliveries.DeliveriesFragment"
+        android:label="Deliveries" />
+
+    <fragment
+        android:id="@+id/routesFragment"
+        android:name="com.example.logicostapp3.ui.routes.RoutesFragment"
+        android:label="Routes" />
+
+
+    <fragment
+        android:id="@+id/costCalculatorFragment"
+        android:name="com.example.logicostapp3.ui.calculator.CostCalculatorFragment"
+        android:label="Cost Calculator" />
+
+
+    <fragment
+        android:id="@+id/marketplaceFragment"
+        android:name="com.example.logicostapp3.MarketplaceFragment"
+        android:label="Marketplace"
+        tools:layout="@layout/fragment_marketplace" />
+
+
+
+</navigation>

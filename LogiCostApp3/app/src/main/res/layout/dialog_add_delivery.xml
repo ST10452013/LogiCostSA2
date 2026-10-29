@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/etReferenceCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Reference code *"
+            android:inputType="textCapCharacters"
+            android:maxLength="30" />
+
+        <EditText
+            android:id="@+id/etPickupAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pickup address *"
+            android:inputType="textPostalAddress"
+            android:maxLength="500" />
+
+        <EditText
+            android:id="@+id/etDropoffAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Drop-off address *"
+            android:inputType="textPostalAddress"
+            android:maxLength="500" />
+
+        <EditText
+            android:id="@+id/etPackageDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Package / goods description *"
+            android:inputType="textCapSentences|textMultiLine"
+            android:minLines="2"
+            android:maxLength="500" />
+
+        <EditText
+            android:id="@+id/etRecipientName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipient name (optional)"
+            android:inputType="textCapWords"
+            android:maxLength="160" />
+
+        <EditText
+            android:id="@+id/etRecipientPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Recipient phone (optional)"
+            android:inputType="phone"
+            android:maxLength="30" />
+
+        <EditText
+            android:id="@+id/etScheduledDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Scheduled date (YYYY-MM-DD)"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/etAgreedCost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Agreed cost in rand (optional)"
+            android:inputType="numberDecimal" />
+
+    </LinearLayout>
+</ScrollView>

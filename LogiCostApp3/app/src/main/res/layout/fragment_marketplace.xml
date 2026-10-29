@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F6F9"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Page heading -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOGICOST SA"
+            android:textColor="#DDAA35"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Marketplace"
+            android:textColor="#14233C"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Connect with businesses. Find supplies, services and delivery partners."
+            android:textColor="#687386"
+            android:textSize="14sp" />
+
+        <!-- Publish listing -->
+        <Button
+            android:id="@+id/btnPublishListing"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#E6AF41"
+            android:text="＋  Publish a listing"
+            android:textAllCaps="false"
+            android:textColor="#14233C"
+            android:textStyle="bold" />
+
+        <!-- Search -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Find what your business needs"
+            android:textColor="#14233C"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etMarketplaceSearch"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:background="@android:drawable/edit_text"
+            android:hint="Search listings or companies..."
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:singleLine="true"
+            android:textSize="14sp" />
+
+        <!-- Listing type filter -->
+        <Spinner
+            android:id="@+id/spinnerListingType"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:entries="@array/marketplace_listing_types" />
+
+        <!-- Listings heading -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="12dp"
+            android:text="Available listings"
+            android:textColor="#14233C"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Listings are added here by MarketplaceFragment -->
+        <LinearLayout
+            android:id="@+id/layoutMarketplaceListings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+</ScrollView>
