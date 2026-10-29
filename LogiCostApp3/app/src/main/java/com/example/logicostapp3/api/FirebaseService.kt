@@ -151,6 +151,77 @@ class FirebaseService private constructor() : ApiService {
 
     fun isSignedIn(): Boolean = auth.currentUser != null
 
+    /** True when the user signed in with email and password (not Google). */
+    fun usesPassword(): Boolean =
+        auth.currentUser?.providerData?.any { it.providerId == "password" } == true
+
+
+    // Settings: profile
+
+    data class Profile(
+        val fullname: String,
+        val email: String,
+        val businessName: String,
+        val businessType: String,
+        val phone: String,
+        val province: String,
+        val city: String
+    )
+
+    suspend fun getProfile(): Profile {
+        val user = auth.currentUser
+            ?: throw IllegalStateException("You are not signed in.")
+
+        val companyId = companyId()
+
+        val profile = db.collection(USERS).document(user.uid).get().await()
+        val company = db.collection(COMPANIES).document(companyId.toString()).get().await()
+
+        return Profile(
+            fullname = profile.getString("fullname") ?: "",
+            email = profile.getString("email") ?: (user.email ?: ""),
+            businessName = company.getString("businessName") ?: "",
+            businessType = company.getString("businessType") ?: "",
+            phone = company.getString("phone") ?: "",
+            province = company.getString("province") ?: "",
+            city = company.getString("city") ?: ""
+        )
+    }
+
+    suspend fun updateProfile(profile: Profile) {
+        val user = auth.currentUser
+            ?: throw IllegalStateException("You are not signed in.")
+
+        val companyId = companyId()
+        val batch = db.batch()
+
+        batch.update(
+            db.collection(USERS).document(user.uid),
+            mapOf("fullname" to profile.fullname)
+        )
+
+        batch.update(
+            db.collection(COMPANIES).document(companyId.toString()),
+            mapOf(
+                "businessName" to profile.businessName,
+                "phone" to profile.phone,
+                "province" to profile.province,
+                "city" to profile.city
+            )
+        )
+
+        withTimeout(TIMEOUT_MS) { batch.commit().await() }
+
+        cachedBusinessName = profile.businessName
+    }
+
+    suspend fun sendPasswordReset() {
+        val email = auth.currentUser?.email
+            ?: throw IllegalStateException("Your account has no email address.")
+
+        withTimeout(TIMEOUT_MS) { auth.sendPasswordResetEmail(email).await() }
+    }
+
     private suspend fun createProfile(
         user: FirebaseUser,
         fullname: String,

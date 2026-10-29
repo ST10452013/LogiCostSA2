@@ -1,26 +1,58 @@
-# PHP
-# Test and package your PHP project.
-# Add steps that run tests, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+# LogiCost SA website - Azure Pipelines
+# Checks every PHP file for syntax errors and the SQL script exists,
+# then packages the website so it can be deployed to Azure App Service.
 
 trigger:
-- main
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - LogiCostApp3/*
 
 pool:
   vmImage: ubuntu-latest
 
 variables:
-  phpVersion: 8.1
+  phpVersion: '8.3'
 
 steps:
-- script: |
-    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
-    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
-    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
-    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
-    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
-    php -version
-  displayName: 'Use PHP version $(phpVersion)'
+  - script: |
+      sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+      php -version
+    displayName: 'Use PHP $(phpVersion)'
 
-- script: composer install --no-interaction --prefer-dist
-  displayName: 'composer install'
+  - script: |
+      set -e
+      failed=0
+      while IFS= read -r -d '' file; do
+        php -l "$file" > /dev/null || failed=1
+      done < <(find . -name '*.php' -not -path './LogiCostApp3/*' -print0)
+      if [ "$failed" -ne 0 ]; then
+        echo "##vso[task.logissue type=error]PHP syntax errors found."
+        exit 1
+      fi
+      echo "All PHP files passed the syntax check."
+    displayName: 'Check PHP syntax'
+
+  - script: test -s database/logiscost_sa2.sql
+    displayName: 'Check database script exists'
+
+  - task: ArchiveFiles@2
+    displayName: 'Package website'
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+      includeRootFolder: false
+      archiveType: zip
+      archiveFile: '$(Build.ArtifactStagingDirectory)/logicost-website.zip'
+      replaceExistingArchive: true
+      excludes: |
+        LogiCostApp3/**
+        .git/**
+        .github/**
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish website package'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/logicost-website.zip'
+      ArtifactName: 'website'

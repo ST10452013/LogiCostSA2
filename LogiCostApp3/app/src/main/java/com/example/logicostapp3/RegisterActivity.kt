@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.logicostapp3.api.FirebaseService
+import com.example.logicostapp3.util.Validation
 import com.example.logicostapp3.databinding.ActivityRegisterBinding
 import com.example.logicostapp3.model.RegisterRequest
 import kotlinx.coroutines.launch
@@ -138,7 +139,7 @@ class RegisterActivity : AppCompatActivity() {
             return
         }
 
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Validation.isValidEmail(email)) {
             showError("Please enter a valid email address.")
             return
         }

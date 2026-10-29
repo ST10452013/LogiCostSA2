@@ -10,6 +10,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.logicostapp3.api.AppSettings
 import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.databinding.DialogAddInventoryBinding
@@ -124,6 +125,11 @@ class InventoryFragment : Fragment() {
 
     private fun showAddDialog() {
         val dialogBinding = DialogAddInventoryBinding.inflate(layoutInflater)
+
+        // Pre-fill the low-stock alert level chosen in Settings.
+        dialogBinding.etThreshold.setText(
+            AppSettings(requireContext()).lowStockThreshold.toString()
+        )
 
         val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Add New Product")
@@ -275,6 +281,11 @@ class InventoryFragment : Fragment() {
     }
 
     private fun confirmDelete(item: InventoryItem) {
+        if (!AppSettings(requireContext()).confirmBeforeDelete) {
+            deleteItem(item)
+            return
+        }
+
         AlertDialog.Builder(requireContext())
             .setTitle("Delete Product")
             .setMessage("Delete '${item.productName}'?")

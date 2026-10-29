@@ -38,6 +38,18 @@
         android:label="Marketplace"
         tools:layout="@layout/fragment_marketplace" />
 
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.logicostapp3.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.example.logicostapp3.ui.help.HelpFragment"
+        android:label="Help"
+        tools:layout="@layout/fragment_help" />
+
 
 
 </navigation>

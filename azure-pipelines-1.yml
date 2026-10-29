@@ -1,24 +1,37 @@
-# Starter pipeline
-- task: AndroidSigning@3
-  inputs:
-    apkFiles: '**/*.apk'
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'run'
+# LogiCost SA Android app - Azure Pipelines
+# Runs the unit tests and builds the debug APK, the same checks as
+# the GitHub Actions workflow, so both DevOps tools report on the app.
+
 trigger:
-- main
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - LogiCostApp3/*
 
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - script: chmod +x gradlew
+    workingDirectory: LogiCostApp3
+    displayName: 'Make Gradle wrapper executable'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - task: Gradle@3
+    displayName: 'Run unit tests and build APK'
+    inputs:
+      workingDirectory: 'LogiCostApp3'
+      gradleWrapperFile: 'LogiCostApp3/gradlew'
+      tasks: 'testDebugUnitTest assembleDebug'
+      publishJUnitResults: true
+      testResultsFiles: '**/test-results/testDebugUnitTest/TEST-*.xml'
+      # Hosted Ubuntu agents ship JDK 21 at this path.
+      javaHomeOption: 'Path'
+      jdkDirectory: '$(JAVA_HOME_21_X64)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish debug APK'
+    inputs:
+      PathtoPublish: 'LogiCostApp3/app/build/outputs/apk/debug'
+      ArtifactName: 'android-apk'

@@ -8,6 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.logicostapp3.R
+import com.example.logicostapp3.api.AppSettings
+import com.example.logicostapp3.util.CostCalculator
 import com.google.android.material.button.MaterialButton
 import java.util.Locale
 
@@ -33,18 +35,21 @@ class CostCalculatorFragment :
         val clearButton =
             view.findViewById<MaterialButton>(R.id.btnClear)
 
-        calculateButton.setOnClickListener {
-            // The three main inputs are required.
-            val km = distance.text.toString().toDoubleOrNull()
-            val litresPer100Km =
-                consumption.text.toString().toDoubleOrNull()
-            val pricePerLitre =
-                fuelPrice.text.toString().toDoubleOrNull()
+        // Pre-fill the vehicle defaults chosen in Settings.
+        val settings = AppSettings(requireContext())
+        fun fillDefaults() {
+            consumption.setText(settings.fuelConsumption.toString())
+            fuelPrice.setText(settings.fuelPrice.toString())
+        }
+        fillDefaults()
 
-            if (km == null || litresPer100Km == null ||
-                pricePerLitre == null ||
-                km <= 0 || litresPer100Km < 0 || pricePerLitre < 0
-            ) {
+        calculateButton.setOnClickListener {
+            val km = distance.text.toString().trim().replace(',', '.').toDoubleOrNull()
+            val litresPer100Km = consumption.text.toString().trim().replace(',', '.').toDoubleOrNull()
+            val pricePerLitre = fuelPrice.text.toString().trim().replace(',', '.').toDoubleOrNull()
+
+            // The three main inputs are required.
+            if (km == null || litresPer100Km == null || pricePerLitre == null) {
                 Toast.makeText(
                     requireContext(),
                     "Enter a valid distance, fuel consumption and fuel price.",
@@ -54,19 +59,9 @@ class CostCalculatorFragment :
             }
 
             // Blank additional expense fields are treated as zero.
-            fun expense(input: EditText): Double? {
-                val text = input.text.toString().trim()
-                val amount = if (text.isEmpty()) 0.0
-                else text.toDoubleOrNull()
-
-                return amount?.takeIf {
-                    it.isFinite() && it >= 0
-                }
-            }
-
-            val toll = expense(tollFees)
-            val wages = expense(driverWages)
-            val other = expense(otherExpenses)
+            val toll = CostCalculator.parseExpense(tollFees.text.toString())
+            val wages = CostCalculator.parseExpense(driverWages.text.toString())
+            val other = CostCalculator.parseExpense(otherExpenses.text.toString())
 
             if (toll == null || wages == null || other == null) {
                 Toast.makeText(
@@ -77,26 +72,31 @@ class CostCalculatorFragment :
                 return@setOnClickListener
             }
 
-            // Fuel used = distance × consumption / 100.
-            val fuelUsed = km * litresPer100Km / 100.0
-            val fuelCost = fuelUsed * pricePerLitre
+            val result = CostCalculator.calculate(
+                km, litresPer100Km, pricePerLitre, toll, wages, other
+            )
 
-            val totalCost = fuelCost + toll + wages + other
-            val costPerKm = totalCost / km
+            if (result == null) {
+                Toast.makeText(
+                    requireContext(),
+                    "Distance must be above zero and costs cannot be negative.",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
 
             // Display the results in South African rand.
             fun money(amount: Double): String =
                 String.format(Locale.getDefault(), "R %.2f", amount)
 
-            fuelResult.text = money(fuelCost)
-            totalResult.text = money(totalCost)
-            perKmResult.text = "${money(costPerKm)} / km"
+            fuelResult.text = money(result.fuelCost)
+            totalResult.text = money(result.totalCost)
+            perKmResult.text = "${money(result.costPerKm)} / km"
         }
 
         clearButton.setOnClickListener {
             distance.text.clear()
-            consumption.text.clear()
-            fuelPrice.text.clear()
+            fillDefaults()
             tollFees.setText("0")
             driverWages.setText("0")
             otherExpenses.setText("0")

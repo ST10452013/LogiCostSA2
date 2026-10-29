@@ -3,7 +3,9 @@ package com.example.logicostapp3.ui.dashboard
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.logicostapp3.MainActivity
+import com.example.logicostapp3.R
 import com.example.logicostapp3.api.FirebaseService
 import com.example.logicostapp3.api.SessionManager
 import com.example.logicostapp3.databinding.FragmentDashboardBinding
@@ -52,6 +54,14 @@ class DashboardFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             (activity as? MainActivity)?.logout()
+        }
+
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.settingsFragment)
+        }
+
+        binding.btnHelp.setOnClickListener {
+            findNavController().navigate(R.id.helpFragment)
         }
 
         binding.swipeRefresh.setOnRefreshListener {
