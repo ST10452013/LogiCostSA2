@@ -98,3 +98,6 @@ The web project includes working login and registration functionality, session-b
 Inventory enhancements, advanced costing and reporting, genuine live GPS tracking, load-shedding integrations, and the Android application require further implementation and testing. Map markers based on city information are approximate and do not represent verified live vehicle locations.
 
 **Project goal:** To develop a practical, affordable, and scalable supply chain and costing platform that addresses the needs of South African manufacturing SMMEs.
+
+
+Modise is a collaborator
