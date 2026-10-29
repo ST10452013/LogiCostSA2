@@ -36,25 +36,20 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
             <a class="<?= $currentPage === 'dashboard.php' ? 'active' : '' ?>"
                href="dashboard.php">Dashboard</a>
 
-            <a href="index.php">Public homepage</a>
+            <a class="<?= $currentPage === 'inventory.php' ? 'active' : '' ?>"
+               href="inventory.php">Inventory</a>
 
-            <span class="lc-nav-coming-soon"
-                  title="This module will be enabled when its functionality is built">
-                Inventory <small>Coming soon</small>
-            </span>
+            <a class="<?= $currentPage === 'deliveries.php' ? 'active' : '' ?>"
+               href="deliveries.php">Deliveries</a>
 
-            <span class="lc-nav-coming-soon"
-                  title="This module will be enabled when its functionality is built">
-                Marketplace <small>Coming soon</small>
-            </span>
+            <a class="<?= $currentPage === 'marketplace.php' ? 'active' : '' ?>"
+               href="marketplace.php">Marketplace</a>
 
-            <span class="lc-nav-coming-soon"
-                  title="This module will be enabled when its functionality is built">
-                Deliveries <small>Coming soon</small>
-            </span>
+            <a class="<?= $currentPage === 'live-map.php' ? 'active' : '' ?>"
+               href="live-map.php">Live map</a>
 
-           <a class="<?= $currentPage === 'live-map.php' ? 'active' : '' ?>"
-   href="live-map.php">Live map</a>
+            <a class="<?= $currentPage === 'business-reports.php' ? 'active' : '' ?>"
+               href="business-reports.php">Reports</a>
 
             <div class="lc-account">
                 <span class="lc-user-name"><?= $userName ?></span>
@@ -69,8 +64,7 @@ $currentPage = basename($_SERVER['PHP_SELF'] ?? 'index.php');
             <a class="<?= $currentPage === 'index.php' ? 'active' : '' ?>"
                href="index.php">Home</a>
 
-            <a class="<?= $currentPage === 'about.php' ? 'active' : '' ?>"
-               href="about.php">About us</a>
+            <a href="index.php#about">About us</a>
 
             <a class="<?= $currentPage === 'login.php' ? 'active' : '' ?>"
                href="login.php">Log in</a>

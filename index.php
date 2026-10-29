@@ -231,14 +231,7 @@ if (!empty($_SESSION['user_id']) && !empty($_SESSION['company_id'])) {
 <body class="home-page">
     
 
-<header class="home-nav">
-    <?php require_once __DIR__ . '/includes/navbar.php'; ?>
-        <a class="home-link" href="#features">Features</a>
-        <a class="home-link" href="#about">About</a>
-        <a href="login.php" class="home-link">Log in</a>
-        <a href="register.php" class="home-button">Join LogiCost</a>
-    </nav>
-</header>
+<?php require_once __DIR__ . '/includes/navbar.php'; ?>
 
 <main>
     <section class="home-hero" id="about">

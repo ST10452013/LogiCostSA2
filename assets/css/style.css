@@ -401,6 +401,10 @@ input::placeholder { color: #89948B; }
     .panel-footer { margin-top: 20px; }
     .login-form-panel { padding: 42px 24px; }
     .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    /* On narrow screens show the login form first, the welcome panel after it. */
+    .login-form-panel { order: -1; }
+    .login-brand-panel .brand { display: none; }
 }
 
 @media (max-width: 560px) {
@@ -408,7 +412,8 @@ input::placeholder { color: #89948B; }
     .login-brand-content { padding: 38px 0 16px; }
     .login-brand-content h1 { font-size: 2.5rem; }
     .login-form-panel { padding: 32px 22px; }
-    .mobile-brand { display: inline-flex; margin-bottom: 32px; }
+    /* The site header already shows the logo on phones. */
+    .mobile-brand { display: none; }
     .field-row { grid-template-columns: 1fr; gap: 0; }
     .tool-grid { grid-template-columns: 1fr; }
     .tool-card p { min-height: 0; }
