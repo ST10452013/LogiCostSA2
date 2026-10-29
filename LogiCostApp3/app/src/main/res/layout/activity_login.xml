@@ -11,26 +11,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="32dp"
+        android:padding="24dp"
         android:gravity="center_horizontal">
 
         <!-- Logo / Header -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LogiCost SA"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            android:textColor="@color/navy"
-            android:layout_marginTop="48dp" />
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_logo_badge"
+            android:gravity="center"
+            android:text="L"
+            android:textColor="@color/gold"
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Smart manufacturing for South Africa"
-            android:textSize="14sp"
-            android:textColor="@color/grey_text"
-            android:layout_marginBottom="40dp" />
+            android:layout_marginTop="16dp"
+            android:text="LogiCost SA"
+            android:textColor="@color/navy"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:gravity="center"
+            android:text="Smart logistics and costing for South African businesses"
+            android:textColor="@color/slate"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Welcome back! Log in to continue."
+            android:textColor="@color/charcoal"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <!-- Error -->
         <TextView

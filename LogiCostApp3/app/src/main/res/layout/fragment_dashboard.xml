@@ -18,23 +18,66 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Header -->
-            <TextView
-                android:id="@+id/tvWelcome"
+            <!-- Header banner -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@color/navy"
-                android:layout_marginBottom="4dp" />
+                android:layout_marginBottom="20dp"
+                app:cardBackgroundColor="@color/navy"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="LogiCost SA"
+                        android:textColor="@color/gold"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.08" />
+
+                    <TextView
+                        android:id="@+id/tvWelcome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvRole"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/gold_light"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Pull down to refresh your numbers."
+                        android:textColor="@color/light_grey"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/tvRole"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/grey_text"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="10dp"
+                android:text="Today at a glance"
+                android:textColor="@color/charcoal"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <!-- Stats Grid Row 1 -->
             <LinearLayout
@@ -45,7 +88,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     android:layout_marginEnd="6dp"
@@ -64,7 +108,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     android:layout_marginStart="6dp"
@@ -91,7 +136,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     android:layout_marginEnd="6dp"
@@ -110,7 +156,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     android:layout_marginStart="6dp"
@@ -137,7 +184,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     android:layout_marginEnd="6dp"
@@ -156,7 +204,8 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="12dp"
                     android:layout_marginStart="6dp"
