@@ -1,4 +1,3 @@
-
 <?php
 
 function require_login(): void
